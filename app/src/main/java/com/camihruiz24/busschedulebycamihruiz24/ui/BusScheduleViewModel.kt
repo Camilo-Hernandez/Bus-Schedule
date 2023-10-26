@@ -2,35 +2,23 @@ package com.camihruiz24.busschedulebycamihruiz24.ui
 
 import androidx.lifecycle.ViewModel
 import com.camihruiz24.busschedulebycamihruiz24.data.BusSchedule
+import com.camihruiz24.busschedulebycamihruiz24.data.BusScheduleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 
 @HiltViewModel
-class BusScheduleViewModel @Inject internal constructor(): ViewModel() {
+class BusScheduleViewModel @Inject internal constructor(
+    private val busScheduleRepository: BusScheduleRepository
+): ViewModel() {
 
-    // Get example bus schedule
-    fun getFullSchedule(): Flow<List<BusSchedule>> = flowOf(
-        listOf(
-            BusSchedule(
-                1,
-                "Example Street",
-                0
-            )
-        )
-    )
+    // Get bus schedule
+    fun getFullSchedule(): Flow<List<BusSchedule>> =
+        busScheduleRepository.getAllBusSchedulesStream()
 
-    // Get example bus schedule by stop
-    fun getScheduleFor(stopName: String): Flow<List<BusSchedule>> = flowOf(
-        listOf(
-            BusSchedule(
-                1,
-                "Example Street",
-                0
-            )
-        )
-    )
+    // Get bus schedule by stop
+    fun getScheduleFor(stopName: String): Flow<List<BusSchedule>> =
+        busScheduleRepository.getBusScheduleStream(stopName)
 
 }
