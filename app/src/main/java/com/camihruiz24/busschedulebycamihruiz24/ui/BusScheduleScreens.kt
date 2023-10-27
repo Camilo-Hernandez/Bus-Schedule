@@ -156,7 +156,7 @@ fun BusScheduleScreen(
     val stopNameText = if (stopName == null) {
         stringResource(R.string.stop_name)
     } else {
-        "$stopName ${stringResource(R.string.route_stop_name)}"
+        stringResource(R.string.route_stop_name, stopName)
     }
     val layoutDirection = LocalLayoutDirection.current
     Column(
